@@ -1,33 +1,33 @@
 package velum;
 
-import java.awt.Component;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Container;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
+import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.SwingConstants;
 
 public class Velum {
-
+	private JPanel contentPane;
 	private JFrame frmSenhasFodas;
 	private JTable table;
 	private JTextField txtDesc;
@@ -57,90 +57,75 @@ public class Velum {
 	 * Create the application.
 	 */
 	public Velum() {
-		initialize();
+		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	CardLayout cardLayout = new CardLayout();
+	JPanel pPrincipal = new JPanel(cardLayout);
+	
 	private void initialize() {
 		frmSenhasFodas = new JFrame();
-		frmSenhasFodas.setIconImage(Toolkit.getDefaultToolkit().getImage("E:\\eclipse-workspace\\GerenciadorSenhas\\src\\main\\resources\\chave.png"));
+		frmSenhasFodas.setIconImage(Toolkit.getDefaultToolkit().getImage("E:\\eclipse-workspace\\Clavis\\src\\main\\resources\\chave.png"));
 		frmSenhasFodas.setAutoRequestFocus(false);
 		frmSenhasFodas.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		frmSenhasFodas.setTitle("Gerenciador de senhas");
-		frmSenhasFodas.setBounds(0, 0, 720, 480);
+		frmSenhasFodas.setBounds(0, 0, 880, 480);
 		frmSenhasFodas.setLocationRelativeTo(null);
 		frmSenhasFodas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmSenhasFodas.getContentPane().setLayout(null);
+
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
 		String[] colunas = {"ID", "Descricao", "Senha","Copiar","Excluir"};
 		DefaultTableModel model = new DefaultTableModel(colunas, 0);
-				
+
+		// criação do menu lateral com botões
+		JPanel menuLateral = new JPanel(new GridLayout(5, 1, 0, 5));
+		menuLateral.setBounds(0, 0, 120, 442);
+
+		JButton btnHome = new JButton("Home");
+        JButton btnNovaSenha = new JButton("Nova Senha");
+
+        menuLateral.add(btnHome);
+        menuLateral.add(btnNovaSenha);
+        frmSenhasFodas.getContentPane().add(menuLateral);
+		
+        // criação das "telas" de acordo com os botões
+        JPanel pHome = new JPanel();
+        pHome.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+                
+        JPanel pNovaSenha = new JPanel();
+        pPrincipal.setBounds(118, 0, 521, 442);
+        
+        pPrincipal.add(pHome, "home");
+        pPrincipal.add(pNovaSenha, "nova senha");
+        
+        // adiciona ação aos botões
+        btnHome.addActionListener(e-> cardLayout.show(pPrincipal, "home"));
+        btnNovaSenha.addActionListener(e -> cardLayout.show(pPrincipal, "nova senha"));
+        
+        frmSenhasFodas.getContentPane().add(menuLateral, BorderLayout.WEST);
+        frmSenhasFodas.getContentPane().add(pPrincipal,BorderLayout.CENTER);
+        
+        setVisible(true);
+        
+        /*
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 500, 442);
+		scrollPane.setBounds(119, 0, 500, 442);
 		scrollPane.setViewportBorder(null);
 		frmSenhasFodas.getContentPane().add(scrollPane);
 		table = new JTable(model);
 		scrollPane.setViewportView(table);
 		Nexum.carregarDados(table);
+		*/
+        
 		
 		
-		
-		txtDesc = new JTextField();
-		txtDesc.setBounds(510, 60, 103, 20);
-		frmSenhasFodas.getContentPane().add(txtDesc);
-		txtDesc.setColumns(10);
-		
-		txtSenha = new JTextField();
-		txtSenha.setBounds(510, 137, 167, 20);
-		txtSenha.setColumns(10);
-		frmSenhasFodas.getContentPane().add(txtSenha);
-		
-		lbl_aviso = new JLabel("");
-		lbl_aviso.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_aviso.setBounds(510, 261, 184, 41);
-		frmSenhasFodas.getContentPane().add(lbl_aviso);
-		
-		lblNewLabel = new JLabel("Descrição");
-		lblNewLabel.setBounds(510, 35, 71, 14);
-		frmSenhasFodas.getContentPane().add(lblNewLabel);
-		
-		lblNewLabel_1 = new JLabel("Senha");
-		lblNewLabel_1.setBounds(510, 112, 46, 14);
-		frmSenhasFodas.getContentPane().add(lblNewLabel_1);
-		
-		lblNewLabel_2 = new JLabel("Tamanho Senha");
-		lblNewLabel_2.setBounds(601, 35, 114, 14);
-		frmSenhasFodas.getContentPane().add(lblNewLabel_2);
-		
-		JSpinner spnCaracteres = new JSpinner();
-		spnCaracteres.setModel(new SpinnerNumberModel(8, 8, 255, 1));
-		spnCaracteres.setBounds(623, 60, 71, 20);
-		frmSenhasFodas.getContentPane().add(spnCaracteres);
-
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setBounds(673, 137, 21, 20);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int tamanha = (int) spnCaracteres.getValue();
-				txtSenha.setText(Munus.senhaAleatoria(tamanha));
-			}
-		});
-
-		frmSenhasFodas.getContentPane().setLayout(null);
-		btnNewButton.setIcon(new ImageIcon("E:\\eclipse-workspace\\GerenciadorSenhas\\src\\main\\resources\\Iconsmind-Outline-Reload-2-2.16.png"));
-		frmSenhasFodas.getContentPane().add(btnNewButton);
-		
-		JButton BtnSalvar = new JButton("Salvar Senha");
-		BtnSalvar.setBounds(529, 186, 148, 52);
-		BtnSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Munus.inserirSenha(txtDesc.getText(), txtSenha.getText());
-				Nexum.carregarDados(table);
-			}
-		});
-		frmSenhasFodas.getContentPane().add(BtnSalvar);
-		
+		/*
 		// editores e criadores dos botoes da tabela
 		class ButtonRenderer extends JButton implements TableCellRenderer {
 		    public ButtonRenderer() {
@@ -234,7 +219,9 @@ public class Velum {
 		table.getColumnModel().getColumn(3).setCellRenderer(new ButtonRenderer());
 		table.getColumnModel().getColumn(3).setCellEditor(new ButtonEditor(new JCheckBox(), table));
 		table.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
-		table.getColumnModel().getColumn(4).setCellEditor(new ButtonExcludeEditor(new JCheckBox(), table));
+		table.getColumnModel().getColumn(4).setCellEditor(new ButtonExcludeEditor(new JCheckBox(), table));		
+		
+		*/
 		
 		txtSenha.getDocument().addDocumentListener(new DocumentListener(){			
 			@Override
@@ -258,5 +245,20 @@ public class Velum {
 		}
 		);
 		
+	}
+
+	private void setVisible(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void setContentPane(JPanel contentPane2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private Container getContentPane() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -16,6 +16,8 @@ public class Nexum {
     public static String sql;
     public static ResultSet rs;
 
+    
+    // conecta no banco e retorna a conexao
     public static Connection conectar() throws SQLException {
         Connection conn = DriverManager.getConnection(URL, USUARIO, SENHA);
         sql = "create table if not exists contas "
@@ -27,6 +29,8 @@ public class Nexum {
         return conn;
     }
     
+    
+    // carrega os dados e retorna em uma tabela
     public static JTable carregarDados(JTable table) {
     	DefaultTableModel model = (DefaultTableModel) table.getModel();
     	model.setRowCount(0);

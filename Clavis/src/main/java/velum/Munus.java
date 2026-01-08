@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 public class Munus {
+	
+	// envia a senha e dados ao banco
 	public static void inserirSenha(String desc, String senha) {
     	String sql = "insert into contas (Descricao,Senha) values (?,?)";
     	if(senha == null || senha.isEmpty()) {
@@ -28,6 +30,8 @@ public class Munus {
     	}
     }
     
+	
+	// exclui senha/objeto do banco
     public static void excluirSenha(int id) {
     	String sql = "delete from contas where ID = ?";
     	try (Connection conn = Nexum.conectar();
@@ -39,6 +43,8 @@ public class Munus {
     	}
     }
     
+    
+    // gera uma senha
     public static String senhaAleatoria(int numCaracter) {
 	 	SecureRandom random = new SecureRandom();
 		StringBuilder sb = new StringBuilder();
@@ -73,6 +79,7 @@ public class Munus {
 		return senha.toString();
 	 }
     
+    // verifica se uma senha possui diferentes caracteres 
 	public static String validate(String senha) {
 		final Pattern letras = Pattern.compile(".*[a-zA-Z].*");
 		final Pattern num = Pattern.compile(".*\\d.*");
