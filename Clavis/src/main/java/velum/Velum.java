@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -15,16 +16,22 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import DAO.SenhaDAO;
+import Elementis.SenhaCard;
+import Entitas.Senha;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class Velum extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
@@ -57,7 +64,10 @@ public class Velum extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
 		
+	///////////////////////////////////////////////////////
 	// Menu lateral para navegação
+	///////////////////////////////////////////////////////
+
 		JPanel menuLateral = new JPanel(new GridLayout(5, 2, 0, 5));
 		menuLateral.setBounds(0, 0, 120, 442);
 
@@ -66,12 +76,17 @@ public class Velum extends JFrame {
 
         menuLateral.add(btnHome);
         menuLateral.add(btnNovaSenha);
-
+     ///////////////////////////////////////////////////////
      // adiciona ação aos botões
+     ///////////////////////////////////////////////////////
+     /// 
         btnHome.addActionListener(e-> cardLayout.show(pPrincipal, "home"));
         btnNovaSenha.addActionListener(e -> cardLayout.show(pPrincipal, "nova senha"));
-        
+     
+     ///////////////////////////////////////////////////////   
 	 // criação das "telas" de acordo com os botões
+     ///////////////////////////////////////////////////////
+     /// 
         JPanel pHome = new JPanel();
         JPanel pNovaSenha = new JPanel();
         
@@ -80,13 +95,27 @@ public class Velum extends JFrame {
         pPrincipal.add(pHome, "home");
         pPrincipal.add(pNovaSenha, "nova senha");
         
+        ///////////////////////////////////////////////////////
         // Painel inicial que mostra as senhas
-        pHome.setLayout(new GridLayout(10, 3, 10, 10));
-        pHome.add(new JLabel("Teste"));
+        ///////////////////////////////////////////////////////
+        /// 
+        pHome.setLayout(new BoxLayout(pHome, BoxLayout.Y_AXIS));
         
-                
+        JPanel pLista= new JPanel();
+        JScrollPane scrollPane = new JScrollPane(pLista);
+        
+        List<Senha> listaBanco = SenhaDAO.listarNome();
+        for (Senha s: listaBanco) {
+        	pLista.add(new SenhaCard(s));
+        }
+        
+        pHome.add(scrollPane);
+                 
+        
+        ///////////////////////////////////////////////////////
         // Painel para adição das senhas
-        
+        ///////////////////////////////////////////////////////
+
         GridBagLayout gbl_pNovaSenha = new GridBagLayout();
         pNovaSenha.setLayout(gbl_pNovaSenha);
         
@@ -157,13 +186,29 @@ public class Velum extends JFrame {
         pNovaSenha.add(lbl_aviso, gbc_lbl_aviso);
         
         JButton btnSalvar = new JButton("Salvar Senha");
+        btnSalvar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {        
+        		Munus.inserirSenha( txt_nome.getText(), txt_senha.getText());
+        		
+        	}
+        });
         GridBagConstraints gbc_btnSalvar = new GridBagConstraints();
         gbc_btnSalvar.insets = new Insets(0, 0, 0, 5);
         gbc_btnSalvar.gridx = 1;
         gbc_btnSalvar.gridy = 6;
         pNovaSenha.add(btnSalvar, gbc_btnSalvar);
-       
+        
+        ///////////////////////////////////////////////////////
+        // Adiciona as telas ao aplicativo
+        ///////////////////////////////////////////////////////
+
+        getContentPane().add(menuLateral);
+        getContentPane().add(pPrincipal);
+
+        ///////////////////////////////////////////////////////
         // verifica se a senha possui caracteres recomendados e exibe uma mensagem
+        ///////////////////////////////////////////////////////
+         
         txt_senha.getDocument().addDocumentListener(new DocumentListener(){			
 			@Override
 			public void insertUpdate(DocumentEvent e) {		
@@ -187,9 +232,6 @@ public class Velum extends JFrame {
 		);
         
         
-    // Adiciona as telas ao aplicativo
-        getContentPane().add(menuLateral);
-        getContentPane().add(pPrincipal);
         
         setVisible(true);
     }

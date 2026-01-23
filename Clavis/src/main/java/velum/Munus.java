@@ -12,7 +12,7 @@ public class Munus {
 	
 	// envia a senha e dados ao banco
 	public static void inserirSenha(String desc, String senha) {
-    	String sql = "insert into contas (Descricao,Senha) values (?,?)";
+    	String sql = "insert into contas (Nome,Senha) values (?,?)";
     	if(senha == null || senha.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Senha vazia!","AVISO",JOptionPane.WARNING_MESSAGE);
 			return;

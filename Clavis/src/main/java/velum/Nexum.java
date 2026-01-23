@@ -22,7 +22,7 @@ public class Nexum {
         Connection conn = DriverManager.getConnection(URL, USUARIO, SENHA);
         sql = "create table if not exists contas "
         		+ "(ID IDENTITY PRIMARY KEY, "
-        		+ "Descricao VARCHAR(255) NOT NULL,"
+        		+ "Nome VARCHAR(255) NOT NULL,"
         		+ "Senha VARCHAR(255) NOT NULL);";
         Statement stmt = conn.createStatement();
         stmt.execute(sql);
