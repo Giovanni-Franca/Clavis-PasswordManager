@@ -5,28 +5,22 @@ public class Senha {
 	private String Nome;
 	private String Senha; 
 	
-	public Senha(int iD, String Nome, String senha) {
+	public Senha(int iD, String nome, String senha) {
 		super();
 		ID = iD;
-		Nome = Nome;
+		Nome = nome;
 		Senha = senha;
-	}
-	
-	
+	}	
 	
 	public Senha() {
 		super();
 	}
-
-
 
 	public Senha(int iD, String nome) {
 		super();
 		ID = iD;
 		Nome = nome;
 	}
-
-
 
 	public int getID() {
 		return ID;

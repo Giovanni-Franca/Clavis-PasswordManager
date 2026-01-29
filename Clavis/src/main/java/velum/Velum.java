@@ -8,6 +8,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -19,15 +21,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import DAO.SenhaDAO;
 import Elementis.SenhaCard;
 import Entitas.Senha;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class Velum extends JFrame {
 
@@ -68,8 +68,8 @@ public class Velum extends JFrame {
 	// Menu lateral para navegação
 	///////////////////////////////////////////////////////
 
-		JPanel menuLateral = new JPanel(new GridLayout(5, 2, 0, 5));
-		menuLateral.setBounds(0, 0, 120, 442);
+		JPanel menuLateral = new JPanel(new GridLayout(4, 0, 0, 15));
+		menuLateral.setBounds(0, 0, 120, 0);
 
 		JButton btnHome = new JButton("Home");
         JButton btnNovaSenha = new JButton("Nova Senha");
@@ -82,7 +82,7 @@ public class Velum extends JFrame {
      /// 
         btnHome.addActionListener(e-> cardLayout.show(pPrincipal, "home"));
         btnNovaSenha.addActionListener(e -> cardLayout.show(pPrincipal, "nova senha"));
-     
+                
      ///////////////////////////////////////////////////////   
 	 // criação das "telas" de acordo com os botões
      ///////////////////////////////////////////////////////
@@ -103,15 +103,16 @@ public class Velum extends JFrame {
         
         JPanel pLista= new JPanel();
         JScrollPane scrollPane = new JScrollPane(pLista);
-        
-        List<Senha> listaBanco = SenhaDAO.listarNome();
+        scrollPane.setBorder(null);
+        pLista.setLayout(new GridLayout(0, 3, 15, 15));
+
+        List<Senha> listaBanco = Munus.listarNome();
         for (Senha s: listaBanco) {
         	pLista.add(new SenhaCard(s));
         }
-        
+
         pHome.add(scrollPane);
-                 
-        
+
         ///////////////////////////////////////////////////////
         // Painel para adição das senhas
         ///////////////////////////////////////////////////////
@@ -144,6 +145,7 @@ public class Velum extends JFrame {
         txt_nome.setPreferredSize(new Dimension(180,24));;
         
         JSpinner spinner = new JSpinner();
+        spinner.setModel(new SpinnerNumberModel(8, 8, 255, 1));
         GridBagConstraints gbc_spinner = new GridBagConstraints();
         gbc_spinner.insets = new Insets(0, 0, 20, 0);
         gbc_spinner.gridx = 3;
@@ -177,6 +179,7 @@ public class Velum extends JFrame {
         gbc_btn_SenhaAleatoria.gridx = 2;
         gbc_btn_SenhaAleatoria.gridy = 4;
         pNovaSenha.add(btn_SenhaAleatoria, gbc_btn_SenhaAleatoria);
+        btn_SenhaAleatoria.addActionListener(e -> txt_senha.setText(Munus.senhaAleatoria((int) spinner.getValue())));
         
         JLabel lbl_aviso = new JLabel("");
         GridBagConstraints gbc_lbl_aviso = new GridBagConstraints();
@@ -189,6 +192,9 @@ public class Velum extends JFrame {
         btnSalvar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {        
         		Munus.inserirSenha( txt_nome.getText(), txt_senha.getText());
+        		txt_senha.setText("");
+        		txt_nome.setText("");
+        		lbl_aviso.setText("Senha Salva!");
         		
         	}
         });
@@ -235,5 +241,6 @@ public class Velum extends JFrame {
         
         setVisible(true);
     }
+	
 
 }
