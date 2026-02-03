@@ -1,6 +1,5 @@
 package Elementis;
 
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
@@ -11,9 +10,13 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.border.EmptyBorder;
 
 import Entitas.Senha;
 import velum.Munus;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class TelaDetalhe extends JDialog{
 	private Runnable atualizarCallback;
@@ -24,9 +27,38 @@ public class TelaDetalhe extends JDialog{
 		setTitle("Detalhes");
 		setSize(300,200);
 		setLocationRelativeTo(null);
-		setLayout(new GridLayout(0,1));
-		add(new JLabel("nome: " +s.getNome()));
-		add(new JLabel("Senha: "+s.getSenha()));
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.rowHeights = new int[]{33, 31, 0, 0};
+		gridBagLayout.columnWidths = new int[]{197};
+		getContentPane().setLayout(gridBagLayout);
+		
+		GridBagConstraints gbc_nome = new GridBagConstraints();
+		gbc_nome.fill = GridBagConstraints.BOTH;
+		gbc_nome.insets = new Insets(0, 0, 5, 0);
+		gbc_nome.gridx = 0;
+		gbc_nome.gridy = 0;
+		JLabel label_1 = new JLabel("nome: " +s.getNome());
+		getContentPane().add(label_1, gbc_nome);
+		
+		GridBagConstraints gbc_senha = new GridBagConstraints();
+		gbc_senha.fill = GridBagConstraints.BOTH;
+		gbc_senha.insets = new Insets(0, 0, 5, 0);
+		gbc_senha.gridx = 0;
+		gbc_senha.gridy = 1;
+		JLabel label = new JLabel("Senha: "+s.getSenha());
+		getContentPane().add(label, gbc_senha);
+		
+		GridBagConstraints gbc_btnExcluir = new GridBagConstraints();
+		gbc_btnExcluir.fill = GridBagConstraints.VERTICAL;
+		gbc_btnExcluir.insets = new Insets(5, 0, 0, 0);
+		gbc_btnExcluir.gridx = 0;
+		gbc_btnExcluir.gridy = 3;
+		
+		
+		GridBagConstraints gbc_btnCopiar = new GridBagConstraints();
+		gbc_btnCopiar.fill = GridBagConstraints.VERTICAL;
+		gbc_btnCopiar.gridx = 0;
+		gbc_btnCopiar.gridy = 2;
 		
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
@@ -35,13 +67,13 @@ public class TelaDetalhe extends JDialog{
 						"Excluir", 
 						JOptionPane.YES_NO_OPTION,
 						JOptionPane.WARNING_MESSAGE);
-
+				
 				if (result == JOptionPane.YES_OPTION) {
 					Munus.excluirSenha(s.getID());
 					atualizarCallback.run();
 					dispose();
 				}
-			
+				
 			}
 		});
 		
@@ -54,8 +86,9 @@ public class TelaDetalhe extends JDialog{
 				.setContents(senha, null);;
 			}
 		});
-		add(btnExcluir);
-		add(btnCopiar);
+		getContentPane().add(btnCopiar, gbc_btnCopiar);
+		getContentPane().add(btnExcluir, gbc_btnExcluir);
+		
 		setVisible(true);
 	}
 }

@@ -20,9 +20,10 @@ public class SenhaCard extends JPanel{
 	
 	public SenhaCard(Senha s, Runnable atualizarCallback) {
 		this.senha = s;
-		this.atualizarCallback = atualizarCallback;												
+		this.atualizarCallback = atualizarCallback;		
+		
 		setLayout(new BorderLayout());
-		setBorder(BorderFactory.createLineBorder(Color.RED));
+		setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		setBackground(new Color(255,255,255));
 		setPreferredSize(new Dimension(0,120));
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
