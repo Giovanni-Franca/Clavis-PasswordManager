@@ -25,7 +25,7 @@ public class TelaDetalhe extends JDialog{
 		this.atualizarCallback = atualizarCallback;
 		
 		setTitle("Detalhes");
-		setSize(300,200);
+		setSize(500,200);
 		setLocationRelativeTo(null);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.rowHeights = new int[]{33, 31, 0, 0};

@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import Entitas.Senha;
 import velum.Munus;
@@ -20,20 +21,22 @@ public class SenhaCard extends JPanel{
 	
 	public SenhaCard(Senha s, Runnable atualizarCallback) {
 		this.senha = s;
-		this.atualizarCallback = atualizarCallback;		
-		
+		this.atualizarCallback = atualizarCallback;
 		setLayout(new BorderLayout());
-		setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		setBackground(new Color(255,255,255));
 		setPreferredSize(new Dimension(0,120));
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		add(new JLabel(s.getNome()), BorderLayout.CENTER);
+		
+		JLabel nome = new JLabel(s.getNome());
+		nome.setHorizontalAlignment(SwingConstants.CENTER);
+		nome.setVerticalAlignment(SwingConstants.CENTER);
+		add(nome);
 		
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				abrirDetalhes();
-				
 			}
 		});
 		

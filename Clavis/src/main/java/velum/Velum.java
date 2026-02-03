@@ -1,6 +1,7 @@
 package velum;
 
 import java.awt.CardLayout;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
@@ -71,11 +72,15 @@ public class Velum extends JFrame {
 	///////////////////////////////////////////////////////
 
 		JPanel menuLateral = new JPanel(new GridLayout(4, 0, 0, 15));
+		menuLateral.setBorder(new EmptyBorder(10, 10, 0, 0));
 		menuLateral.setBounds(0, 0, 120, 0);
 
 		JButton btnHome = new JButton("Home");
         JButton btnNovaSenha = new JButton("Nova Senha");
 
+        btnHome.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnNovaSenha.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
         menuLateral.add(btnHome);
         menuLateral.add(btnNovaSenha);
      ///////////////////////////////////////////////////////
@@ -90,7 +95,7 @@ public class Velum extends JFrame {
      ///////////////////////////////////////////////////////
      /// 
         JPanel pHome = new JPanel();
-        pHome.setBorder(new EmptyBorder(10, 10, 0, 0));
+        pHome.setBorder(new EmptyBorder(0, 10, 0, 0));
         JPanel pNovaSenha = new JPanel();
         
         pPrincipal.setBounds(118, 0, 676, 442);
@@ -105,7 +110,7 @@ public class Velum extends JFrame {
         pHome.setLayout(new BoxLayout(pHome, BoxLayout.Y_AXIS));
         
         pLista= new JPanel(new GridLayout(0, 3, 15, 15));
-        pLista.setBorder(new EmptyBorder(0, 0, 0, 10));
+        pLista.setBorder(new EmptyBorder(10, 0, 0, 10));
         JScrollPane scrollPane = new JScrollPane(pLista);
         scrollPane.setBorder(null);
         scrollPane.getVerticalScrollBar().setUnitIncrement(24);
