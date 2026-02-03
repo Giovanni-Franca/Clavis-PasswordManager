@@ -40,6 +40,6 @@ public class SenhaCard extends JPanel{
 	
 	private void abrirDetalhes() {
 		senha = Munus.listarSenha(senha.getID());
-		new TelaDetalhe(senha);
+		new TelaDetalhe(senha, atualizarCallback);
 	}
 }

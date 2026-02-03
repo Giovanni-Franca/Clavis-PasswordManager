@@ -1,5 +1,6 @@
 package Elementis;
 
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
@@ -15,7 +16,11 @@ import Entitas.Senha;
 import velum.Munus;
 
 public class TelaDetalhe extends JDialog{
-	public TelaDetalhe(Senha s) {
+	private Runnable atualizarCallback;
+	
+	public TelaDetalhe(Senha s, Runnable atualizarCallback) {
+		this.atualizarCallback = atualizarCallback;
+		
 		setTitle("Detalhes");
 		setSize(300,200);
 		setLocationRelativeTo(null);
@@ -30,9 +35,11 @@ public class TelaDetalhe extends JDialog{
 						"Excluir", 
 						JOptionPane.YES_NO_OPTION,
 						JOptionPane.WARNING_MESSAGE);
+
 				if (result == JOptionPane.YES_OPTION) {
 					Munus.excluirSenha(s.getID());
-					
+					atualizarCallback.run();
+					dispose();
 				}
 			
 			}
@@ -42,7 +49,9 @@ public class TelaDetalhe extends JDialog{
 		btnCopiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				StringSelection senha = new StringSelection(s.getSenha());
-				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(senha, null);;
+				Toolkit.getDefaultToolkit()
+				.getSystemClipboard()
+				.setContents(senha, null);;
 			}
 		});
 		add(btnExcluir);

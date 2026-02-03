@@ -90,7 +90,7 @@ public class Velum extends JFrame {
      ///////////////////////////////////////////////////////
      /// 
         JPanel pHome = new JPanel();
-        pHome.setBorder(new EmptyBorder(0, 10, 0, 0));
+        pHome.setBorder(new EmptyBorder(10, 10, 0, 0));
         JPanel pNovaSenha = new JPanel();
         
         pPrincipal.setBounds(118, 0, 676, 442);
@@ -108,7 +108,9 @@ public class Velum extends JFrame {
         pLista.setBorder(new EmptyBorder(0, 0, 0, 10));
         JScrollPane scrollPane = new JScrollPane(pLista);
         scrollPane.setBorder(null);
-
+        scrollPane.getVerticalScrollBar().setUnitIncrement(24);
+        scrollPane.getVerticalScrollBar().setBlockIncrement(100);
+        
         pHome.add(scrollPane);
         
         carregarSenhas();
