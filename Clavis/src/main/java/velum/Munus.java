@@ -17,7 +17,9 @@ import Entitas.Senha;
 
 public class Munus {
 	
-	// envia a senha e dados ao banco
+	///////////////////////////////////////////////////////
+	// Envia a senha e dados ao banco
+	///////////////////////////////////////////////////////
 	public static void inserirSenha(String desc, String senha) {
     	String sql = "insert into contas (Nome,Senha) values (?,?)";
     	if(senha == null || senha.isEmpty()) {
@@ -33,11 +35,13 @@ public class Munus {
     	        stmt.setString(2, senha);
     	        stmt.executeUpdate();
     	}catch (SQLException e){
-    		System.err.println("❌ Erro ao inserir conta: " + e.getMessage());
+    		System.err.println("Erro ao inserir senha: " + e.getMessage());
     	}
     }
-    
-	// lista todas as senhas
+	
+	///////////////////////////////////////////////////////
+	// Lista todas as senhas
+	///////////////////////////////////////////////////////
 	public static List<Senha> listarNome() {
 		List<Senha> lista = new ArrayList<>();
 		String sql = "SELECT ID, Nome FROM contas order by ID desc";
@@ -58,8 +62,10 @@ public class Munus {
 		return lista;	
 	}
 	
-	// busca a senha por ID
-	public static Senha listarSenha(int id){
+	///////////////////////////////////////////////////////
+	// Busca a senha por ID
+	///////////////////////////////////////////////////////
+ 	public static Senha listarSenha(int id){
 		String sql = "SELECT * from contas where id = ?";
 		try (Connection conn = Nexum.conectar();
 			 PreparedStatement ps = conn.prepareStatement(sql)){
@@ -79,7 +85,9 @@ public class Munus {
 		return null;
 	}
 	
+	///////////////////////////////////////////////////////
 	// exclui senha/objeto do banco
+	///////////////////////////////////////////////////////
     public static void excluirSenha(int id) {
     	String sql = "delete from contas where ID = ?";
     	try (Connection conn = Nexum.conectar();
@@ -91,8 +99,9 @@ public class Munus {
     	}
     }
     
-    
-    // gera uma senha
+	///////////////////////////////////////////////////////
+    // Gera uma senha
+	///////////////////////////////////////////////////////
     public static String senhaAleatoria(int numCaracter) {
 	 	SecureRandom random = new SecureRandom();
 		StringBuilder sb = new StringBuilder();
@@ -127,7 +136,9 @@ public class Munus {
 		return senha.toString();
 	 }
     
-    // verifica se uma senha possui diferentes caracteres 
+	///////////////////////////////////////////////////////
+    // Verifica se uma senha possui diferentes caracteres 
+	///////////////////////////////////////////////////////
 	public static String validate(String senha) {
 		final Pattern letras = Pattern.compile(".*[a-zA-Z].*");
 		final Pattern num = Pattern.compile(".*\\d.*");

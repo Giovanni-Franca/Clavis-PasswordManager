@@ -29,24 +29,4 @@ public class Nexum {
         return conn;
     }
     
-    
-    // carrega os dados e retorna em uma tabela
-    public static JTable carregarDados(JTable table) {
-    	DefaultTableModel model = (DefaultTableModel) table.getModel();
-    	model.setRowCount(0);
-    	try (Connection conn = conectar()) {
-    		sql = "select * from contas";
-    		Statement stmt = conn.createStatement();
-    		rs = stmt.executeQuery(sql);
-    		while (rs.next()) {
-    			int id = rs.getInt("ID");
-    			String desc = rs.getString("Descricao");
-    			String senha = rs.getString("Senha");
-    			model.addRow(new Object[] {id,desc,senha,"Copiar","Excluir"});
-    		}
-    	} catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao acessar banco: " + e.getMessage());
-        }
-		return table;
-    }    
 }

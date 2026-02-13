@@ -23,7 +23,10 @@ public class TelaDetalhe extends JDialog{
 	
 	public TelaDetalhe(Senha s, Runnable atualizarCallback) {
 		this.atualizarCallback = atualizarCallback;
-		
+			
+	///////////////////////////////////////////////////////
+	// Adiciona elementos da tela
+	///////////////////////////////////////////////////////
 		setTitle("Detalhes");
 		setSize(500,200);
 		setLocationRelativeTo(null);
@@ -60,6 +63,9 @@ public class TelaDetalhe extends JDialog{
 		gbc_btnCopiar.gridx = 0;
 		gbc_btnCopiar.gridy = 2;
 		
+	///////////////////////////////////////////////////////
+	// Adiciona botao de excluir e dialogo de confirmacao
+	///////////////////////////////////////////////////////
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
@@ -77,6 +83,9 @@ public class TelaDetalhe extends JDialog{
 			}
 		});
 		
+	///////////////////////////////////////////////////////
+	// Adiciona botao de copiar e fecha a tela de detalhes
+	///////////////////////////////////////////////////////
 		JButton btnCopiar = new JButton("Copiar");
 		btnCopiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

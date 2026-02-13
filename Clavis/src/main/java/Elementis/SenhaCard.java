@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -24,18 +25,25 @@ public class SenhaCard extends JPanel{
 	public SenhaCard(Senha s, Runnable atualizarCallback) {
 		this.senha = s;
 		this.atualizarCallback = atualizarCallback;
+		
+	///////////////////////////////////////////////////////
+	// Define as caracteristicas do card e cria seus elementos
+	///////////////////////////////////////////////////////
 		setLayout(new BorderLayout());
 		setBackground(new Color(255,255,255));
 		setPreferredSize(new Dimension(0,120));
-		setBorder(null);
 		setOpaque(false);
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		JLabel nome = new JLabel(s.getNome());
 		nome.setHorizontalAlignment(SwingConstants.CENTER);
 		nome.setVerticalAlignment(SwingConstants.CENTER);
+		nome.setFont(nome.getFont().deriveFont(Font.BOLD,14f));
 		add(nome);
-		
+			
+	///////////////////////////////////////////////////////
+	// Adiciona ação ao clicar no card, além de efeito de hover
+	///////////////////////////////////////////////////////
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -56,12 +64,17 @@ public class SenhaCard extends JPanel{
 		});
 		
 	}
-	
+	///////////////////////////////////////////////////////
+	// Abre a tela com a senha em si
+	///////////////////////////////////////////////////////
 	private void abrirDetalhes() {
 		senha = Munus.listarSenha(senha.getID());
 		new TelaDetalhe(senha, atualizarCallback);
 	}
 	
+	///////////////////////////////////////////////////////
+	// Gera melhor interface ao card
+	///////////////////////////////////////////////////////
 	@Override
 	protected void paintComponent(Graphics g) {
 	    Graphics2D g2 = (Graphics2D) g.create();
