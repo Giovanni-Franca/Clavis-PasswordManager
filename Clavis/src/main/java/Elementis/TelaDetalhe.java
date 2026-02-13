@@ -83,9 +83,13 @@ public class TelaDetalhe extends JDialog{
 				StringSelection senha = new StringSelection(s.getSenha());
 				Toolkit.getDefaultToolkit()
 				.getSystemClipboard()
-				.setContents(senha, null);;
+				.setContents(senha, null);
+				
+				dispose();
+				JOptionPane.showMessageDialog(rootPane, "Senha copiada para área de transferencia.");
 			}
 		});
+		
 		getContentPane().add(btnCopiar, gbc_btnCopiar);
 		getContentPane().add(btnExcluir, gbc_btnExcluir);
 		
