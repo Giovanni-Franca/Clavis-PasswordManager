@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 
+import Crypto.CryptoUtils;
 import Entitas.Senha;
 import velum.Munus;
 import java.awt.GridBagLayout;
@@ -23,7 +24,7 @@ public class TelaDetalhe extends JDialog{
 	
 	public TelaDetalhe(Senha s, Runnable atualizarCallback) {
 		this.atualizarCallback = atualizarCallback;
-			
+		
 	///////////////////////////////////////////////////////
 	// Adiciona elementos da tela
 	///////////////////////////////////////////////////////
@@ -48,7 +49,7 @@ public class TelaDetalhe extends JDialog{
 		gbc_senha.insets = new Insets(0, 0, 5, 0);
 		gbc_senha.gridx = 0;
 		gbc_senha.gridy = 1;
-		JLabel label = new JLabel("Senha: "+s.getSenha());
+		JLabel label = new JLabel("Senha: "+ CryptoUtils.decrypt(s.getSenha()));
 		getContentPane().add(label, gbc_senha);
 		
 		GridBagConstraints gbc_btnExcluir = new GridBagConstraints();

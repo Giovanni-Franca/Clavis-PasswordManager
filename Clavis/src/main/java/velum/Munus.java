@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import Crypto.CryptoUtils;
 import Elementis.SenhaCard;
 import Entitas.Senha;
 
@@ -29,6 +30,7 @@ public class Munus {
 			JOptionPane.showMessageDialog(null, "Descrição vazia!","AVISO",JOptionPane.WARNING_MESSAGE);
 			return;
     	}
+    	senha = CryptoUtils.encrypt(senha);
     	try (Connection conn = Nexum.conectar();		
     		PreparedStatement stmt = conn.prepareStatement(sql)){
     		 	stmt.setString(1, desc);

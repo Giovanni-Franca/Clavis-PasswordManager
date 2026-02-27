@@ -24,12 +24,13 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import Crypto.CryptoUtils;
 import Elementis.SenhaCard;
 import Entitas.Senha;
-import javax.swing.border.EmptyBorder;
 
 public class Velum extends JFrame {
 
