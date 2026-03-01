@@ -52,7 +52,7 @@ public class SenhaCard extends JPanel{
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				setBackground(Color.BLUE);
+				setBackground(Color.getColor("#D3D3D3"));
 				repaint();
 			}
 			
