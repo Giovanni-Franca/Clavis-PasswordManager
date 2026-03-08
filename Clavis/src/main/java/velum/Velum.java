@@ -8,7 +8,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -28,7 +27,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import Crypto.CryptoUtils;
 import Elementis.SenhaCard;
 import Entitas.Senha;
 
@@ -61,7 +59,8 @@ public class Velum extends JFrame {
     JPanel pPrincipal = new JPanel(cardLayout);
     private JPanel pLista;
 	public Velum() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("E:\\eclipse-workspace\\Clavis\\src\\main\\resources\\chave.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/imagines/chave.png"));
+		setIconImage(icon.getImage());
 		setTitle("Gerenciador de senhas");
 		setBounds(0, 0, 920, 480);
 		setLocationRelativeTo(null);
@@ -180,7 +179,7 @@ public class Velum extends JFrame {
         JButton btn_SenhaAleatoria = new JButton("");
         btn_SenhaAleatoria.setHorizontalAlignment(SwingConstants.LEFT);
         btn_SenhaAleatoria.setToolTipText("Gerar senha");
-        btn_SenhaAleatoria.setIcon(new ImageIcon(getClass().getResource("/Iconsmind-Outline-Reload-2-2.16.png")));
+        btn_SenhaAleatoria.setIcon(new ImageIcon(getClass().getResource("/Imagines/Iconsmind-Outline-Reload-2-2.16.png")));
         GridBagConstraints gbc_btn_SenhaAleatoria = new GridBagConstraints();
         gbc_btn_SenhaAleatoria.anchor = GridBagConstraints.NORTHWEST;
         gbc_btn_SenhaAleatoria.insets = new Insets(0, 0, 5, 5);
