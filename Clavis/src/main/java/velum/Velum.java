@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -59,7 +60,7 @@ public class Velum extends JFrame {
     JPanel pPrincipal = new JPanel(cardLayout);
     private JPanel pLista;
 	public Velum() {
-		ImageIcon icon = new ImageIcon(getClass().getResource("/imagines/chave.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/Imagines/chave.png"));
 		setIconImage(icon.getImage());
 		setTitle("Gerenciador de senhas");
 		setBounds(0, 0, 920, 480);
